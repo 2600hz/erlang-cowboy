@@ -820,6 +820,7 @@ request(Buffer, State0=#state{ref=Ref, transport=Transport, peer=Peer, sock=Sock
 		streamid => StreamID,
 		peer => Peer,
 		sock => Sock,
+		sock_secure => Transport:secure(),
 		cert => Cert,
 		method => Method,
 		scheme => Scheme,

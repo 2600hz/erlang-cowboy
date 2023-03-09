@@ -494,7 +494,7 @@ headers_frame(State, StreamID, IsFin, Headers, PseudoHeaders, BodyLen) ->
 				'Requests translated from HTTP/1.1 must include a host header. (RFC7540 8.1.2.3, RFC7230 5.4)'})
 	end.
 
-headers_frame_parse_host(State=#state{ref=Ref, peer=Peer, sock=Sock, cert=Cert, proxy_header=ProxyHeader},
+headers_frame_parse_host(State=#state{ref=Ref, transport=Transport, peer=Peer, sock=Sock, cert=Cert, proxy_header=ProxyHeader},
 		StreamID, IsFin, Headers, PseudoHeaders=#{method := Method, scheme := Scheme, path := PathWithQs},
 		BodyLen, Authority) ->
 	try cow_http_hd:parse_host(Authority) of
@@ -511,6 +511,7 @@ headers_frame_parse_host(State=#state{ref=Ref, peer=Peer, sock=Sock, cert=Cert, 
 						streamid => StreamID,
 						peer => Peer,
 						sock => Sock,
+						sock_secure => Transport:secure(),
 						cert => Cert,
 						method => Method,
 						scheme => Scheme,

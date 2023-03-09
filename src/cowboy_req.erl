@@ -20,6 +20,7 @@
 -export([version/1]).
 -export([peer/1]).
 -export([sock/1]).
+-export([sock_secure/1]).
 -export([cert/1]).
 -export([scheme/1]).
 -export([host/1]).
@@ -128,6 +129,8 @@
 	headers := cowboy:http_headers(),
 	peer := {inet:ip_address(), inet:port_number()},
 	sock := {inet:ip_address(), inet:port_number()},
+	sock_secure := boolean(),
+
 	cert := binary() | undefined,
 
 	%% Private interface.
@@ -180,6 +183,10 @@ peer(#{peer := Peer}) ->
 -spec sock(req()) -> {inet:ip_address(), inet:port_number()}.
 sock(#{sock := Sock}) ->
 	Sock.
+
+-spec sock_secure(req()) -> boolean().
+sock_secure(#{sock_secure := Secured}) ->
+	Secured.
 
 -spec cert(req()) -> binary() | undefined.
 cert(#{cert := Cert}) ->
